@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="src/letter-f_5379237.svg">
+    <title>Faris Adli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #020617; /* Slate 950 - Deepest Navy/Black */
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+
+        /* Neon Gradient Text */
+        .text-neon-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #06b6d4, #3b82f6);
+        }
+
+        /* Hide Scrollbar for Slider */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Neon Hover Glow Effect */
+        .hover-neon-glow {
+            transition: all 0.4s ease;
+        }
+        .hover-neon-glow:hover {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+            border-color: rgba(6, 182, 212, 0.8);
+            transform: translateY(-5px);
+        }
+
+        /* Background Animated Blobs */
+        .cyber-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: pulse-move 12s infinite alternate ease-in-out;
+        }
+        .blob-cyan { background: #06b6d4; width: 400px; height: 400px; top: -10%; left: -10%; }
+        .blob-blue { background: #1d4ed8; width: 500px; height: 500px; bottom: 10%; right: -15%; animation-delay: -6s; }
+        .blob-light { background: #38bdf8; width: 300px; height: 300px; top: 50%; left: 30%; animation-duration: 20s; }
+
+        @keyframes pulse-move {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            100% { transform: translate(50px, 80px) scale(1.2); opacity: 0.6; }
+        }
+
+        /* Scroll Animations */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Grid overlay */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+        }
+    </style>
+</head>
+<body class="antialiased relative selection:bg-cyan-500 selection:text-white">
+
+    <!-- Background Elements -->
+    <div class="bg-grid"></div>
+    <div class="cyber-blob blob-cyan"></div>
+    <div class="cyber-blob blob-blue"></div>
+    <div class="cyber-blob blob-light"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-cyan-900/30 px-6 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold tracking-wider text-white flex items-center gap-2">
+                Faris Adli
+            </a>
+            
+            <button id="mobile-menu-btn" class="md:hidden focus:outline-none p-2 text-cyan-400 hover:text-cyan-200">
+                <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+                </svg>
+            </button>
+
+            <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#about" class="text-slate-300 hover:text-cyan-400 transition-colors">About</a>
+                <a href="#experience" class="text-slate-300 hover:text-cyan-400 transition-colors">Experience</a>
+                <a href="#skills" class="text-slate-300 hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#certificates" class="text-slate-300 hover:text-cyan-400 transition-colors">Certificates</a>
+                <a href="#portfolio" class="text-slate-300 hover:text-cyan-400 transition-colors">Work</a>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glass-panel border-t-0 flex-col space-y-4 text-sm font-semibold tracking-wide text-center py-6 shadow-2xl">
+            <a href="#about" class="block text-slate-300 hover:text-cyan-400">About</a>
+            <a href="#experience" class="block text-slate-300 hover:text-cyan-400">Experience</a>
+            <a href="#skills" class="block text-slate-300 hover:text-cyan-400">Skills</a>
+            <a href="#certificates" class="block text-slate-300 hover:text-cyan-400">Certificates</a>
+            <a href="#portfolio" class="block text-slate-300 hover:text-cyan-400">Work</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 text-center relative z-10 pt-20">
+        <div class="reveal-up max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+                Hello, I am<br/>
+                <span class="text-neon-gradient font-bold">Faris Adli</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl font-bold text-slate-400 mb-6 max-w-3xl mx-auto leading-relaxed">
+                Data | Development | Design
+            </p>
+            
+            <!-- Social Icons -->
+            <div class="flex justify-center gap-5 mb-10">
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/farisahmdadl/" target="_blank" class="p-3 rounded-full bg-slate-900/50 border border-cyan-500/20 text-slate-300 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]" aria-label="LinkedIn">
+                    <svg class="w-6 h-6" fill="currentColor" id="Capa_1" enable-background="new 0 0 94 94" height="94" viewBox="0 0 94 94" width="94" xmlns="http://www.w3.org/2000/svg"><g>
+                        <path d="m89 0h-84c-2.761 0-5 2.239-5 5v84c0 2.761 2.239 5 5 5h84c2.762 0 5-2.239 5-5v-84c0-2.761-2.238-5-5-5zm-62.586 84.201h-15.448v-49.698h15.447zm-7.721-56.491c-4.951 0-8.959-4.013-8.959-8.958.001-4.938 4.01-8.952 8.959-8.952 4.939 0 8.951 4.012 8.951 8.952 0 4.945-4.012 8.958-8.951 8.958zm65.573 56.49h-15.434v-24.167c0-5.764-.105-13.178-8.029-13.178-8.033 0-9.268 6.278-9.268 12.759v24.586h-15.436v-49.697h14.816v6.79h.207c2.063-3.907 7.103-8.027 14.614-8.027 15.641 0 18.529 10.294 18.529 23.673v27.261z"/></g><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/>
+                    </svg>
+                </a>
+                <!-- Github -->
+                <a href="https://github.com/farisahmdadl" target="_blank" class="p-3 rounded-full bg-slate-900/50 border border-blue-500/20 text-slate-300 hover:bg-blue-500/10 hover:border-blue-400 hover:text-blue-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]" aria-label="Github">
+                    <svg class="w-6 h-6" fill="currentColor" id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g>
+                        <path clip-rule="evenodd" d="m256 6.321c-141.365 0-256 114.61-256 256 0 113.107 73.351 209.066 175.069 242.918 12.792 2.368 17.491-5.556 17.491-12.316 0-6.102-.236-26.272-.348-47.663-71.219 15.487-86.247-30.205-86.247-30.205-11.645-29.588-28.424-37.458-28.424-37.458-23.229-15.889 1.751-15.562 1.751-15.562 25.705 1.805 39.242 26.384 39.242 26.384 22.831 39.134 59.888 27.82 74.498 21.279 2.298-16.543 8.93-27.841 16.253-34.233-56.862-6.471-116.638-28.425-116.638-126.516 0-27.948 10.002-50.786 26.38-68.714-2.658-6.45-11.422-32.486 2.48-67.75 0 0 21.498-6.877 70.416 26.245 20.422-5.673 42.322-8.518 64.077-8.617 21.755.1 43.672 2.944 64.132 8.617 48.863-33.121 70.329-26.245 70.329-26.245 13.935 35.264 5.171 61.3 2.513 67.75 16.415 17.928 26.346 40.766 26.346 68.714 0 98.327-59.888 119.975-116.895 126.313 9.182 7.945 17.363 23.523 17.363 47.407 0 34.253-.294 61.821-.294 70.254 0 6.814 4.608 14.796 17.582 12.283 101.664-33.89 174.924-129.816 174.924-242.885 0-141.391-114.618-256-256-256z" fill-rule="evenodd"/><path d="m96.961 373.879c-.563 1.275-2.567 1.656-4.388.782-1.859-.836-2.898-2.571-2.298-3.846.55-1.308 2.554-1.672 4.409-.799 1.859.837 2.919 2.588 2.277 3.863z"/><path d="m107.332 385.446c-1.221 1.13-3.61.605-5.229-1.184-1.677-1.784-1.987-4.173-.75-5.32 1.259-1.13 3.573-.6 5.25 1.184 1.677 1.805 2.004 4.173.729 5.32z"/><path d="m117.425 400.188c-1.569 1.093-4.136.07-5.721-2.207-1.569-2.277-1.569-5.009.037-6.102 1.586-1.093 4.115-.108 5.722 2.149 1.564 2.314 1.564 5.047-.038 6.16z"/><path d="m131.252 414.434c-1.404 1.548-4.393 1.13-6.578-.982-2.24-2.061-2.861-4.993-1.457-6.541 1.424-1.549 4.43-1.114 6.632.981 2.223 2.062 2.897 5.01 1.403 6.542z"/><path d="m150.329 422.705c-.621 2.004-3.498 2.914-6.396 2.062-2.898-.878-4.79-3.225-4.206-5.25.6-2.02 3.494-2.968 6.413-2.058 2.893.875 4.789 3.205 4.189 5.246z"/><path d="m171.281 424.237c.07 2.111-2.389 3.862-5.432 3.9-3.06.07-5.539-1.639-5.572-3.718 0-2.132 2.405-3.862 5.465-3.916 3.043-.058 5.539 1.639 5.539 3.734z"/><path d="m190.776 420.921c.364 2.058-1.751 4.173-4.774 4.736-2.972.546-5.721-.728-6.102-2.77-.368-2.111 1.784-4.227 4.753-4.774 3.026-.525 5.738.713 6.123 2.808z"/></g>
+                    </svg>
+                </a>
+                <!-- Dribbble -->
+                <a href="https://dribbble.com/farisahmdadl" target="_blank" class="p-3 rounded-full bg-slate-900/50 border border-teal-500/20 text-slate-300 hover:bg-teal-500/10 hover:border-teal-400 hover:text-teal-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]" aria-label="Dribbble">
+                    <svg class="w-6 h-6" fill="currentColor" height="512" viewBox="0 0 32 32" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Flat_copy">
+                        <path d="m26.552 7.32c-.025.036-2.218 3.203-7.612 5.406.317.652.625 1.315.909 1.981.101.239.2.473.295.708 4.694-.591 9.318.402 9.516.444-.033-3.239-1.192-6.211-3.108-8.539zm-5.576 10.252c1.792 4.925 2.52 8.936 2.659 9.76 3.067-2.07 5.247-5.357 5.855-9.165-.282-.092-4.104-1.302-8.514-.595zm.358 11.008c-.202-1.194-.995-5.378-2.918-10.375-.031.011-.061.02-.092.031-8.061 2.809-10.694 8.473-10.722 8.536 2.319 1.804 5.229 2.893 8.398 2.893 1.892-.002 3.694-.387 5.334-1.085zm-3.446-17.89c5.155-1.932 7.101-4.895 7.135-4.945-2.405-2.121-5.564-3.407-9.023-3.407-1.11 0-2.188.134-3.22.383.205.274 2.771 3.679 5.108 7.969zm-.404 5.251c-.343-.777-.717-1.555-1.108-2.322-7.036 2.107-13.786 1.955-14.028 1.946-.004.146-.012.288-.012.435 0 3.51 1.324 6.711 3.501 9.128-.005-.006 3.735-6.64 11.108-9.025.177-.058.359-.111.539-.162zm14.189-3.162c.216 1.052.327 2.136.327 3.221 0 1.083-.11 2.165-.327 3.22-.211 1.03-.524 2.041-.933 3.008-.4.949-.895 1.864-1.475 2.717-.571.848-1.229 1.642-1.952 2.368-.725.721-1.521 1.378-2.367 1.953-.855.576-1.77 1.071-2.718 1.474-.966.408-1.978.72-3.006.931-1.055.218-2.139.329-3.222.329-1.085 0-2.169-.11-3.222-.329-1.029-.211-2.041-.524-3.007-.931-.949-.403-1.864-.898-2.719-1.474-.846-.574-1.642-1.232-2.365-1.953-.724-.726-1.381-1.52-1.953-2.368-.577-.853-1.074-1.769-1.475-2.717-.409-.966-.723-1.978-.935-3.008-.215-1.054-.324-2.136-.324-3.22 0-1.085.109-2.169.324-3.221.212-1.03.525-2.042.934-3.007.402-.951.898-1.866 1.475-2.719.571-.849 1.23-1.642 1.953-2.368.723-.722 1.519-1.377 2.365-1.951.855-.579 1.77-1.076 2.719-1.478.966-.409 1.978-.722 3.007-.932 1.054-.215 2.138-.324 3.223-.324 1.083 0 2.167.109 3.222.325 1.028.21 2.039.523 3.006.932.949.402 1.863.899 2.718 1.478.846.573 1.643 1.229 2.367 1.951.722.726 1.381 1.519 1.952 2.368.58.853 1.076 1.769 1.475 2.719.41.964.723 1.976.933 3.006zm-16.429-1.264c-2.365-4.202-4.892-7.631-5.074-7.873-3.811 1.799-6.654 5.311-7.541 9.542.36.002 6.054.074 12.615-1.669z"/></g>
+                    </svg>
+                </a>
+                <!-- Behance -->
+                <a href="https://www.behance.net/farisahmdadl" target="_blank" class="p-3 rounded-full bg-slate-900/50 border border-cyan-500/20 text-slate-300 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]" aria-label="Behance">
+                    <svg class="w-6 h-6" fill="currentColor" height="300" viewBox="0 0 176 176" width="300" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g id="Layer_2" data-name="Layer 2"><g id="behance"><path d="m63.1 80.73h-15.22v-15.49h15.22s9-.21 9 7.75-9 7.74-9 7.74z" fill="#ffffff" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m74.75 100.46c0 9.49-10.72 9.25-10.72 9.25h-16.15v-18.48h16.12s10.75-.23 10.75 9.23z" fill="#ffffff" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m118.3 80.87c-5.49 0-10 4.11-10.9 10.55h21.8c-.86-6.42-5.42-10.55-10.9-10.55zm0 0c-5.49 0-10 4.11-10.9 10.55h21.8c-.86-6.42-5.42-10.55-10.9-10.55zm33.7-80.87h-128a24 24 0 0 0 -24 24v128a24 24 0 0 0 24 24h128a24 24 0 0 0 24-24v-128a24 24 0 0 0 -24-24zm-47.54 58h27.54v6.86h-27.54zm-26.27 60.73c-3.79 1.87-8.55 2.46-13 2.46h-32.19v-67.61h35.39c4.38 0 17.94 2.61 18 15.64 0 9-5 13.12-9.31 15.1 0 0 11.24 3.34 12.14 13.28s-.88 16.12-11.03 21.13zm64.66-18.65h-35.45c-.34 7.81 5.37 12.47 11.86 12.47a12.44 12.44 0 0 0 11-6.58h11.61c-3.19 11.62-12.54 16.46-23.59 16.46-14.47 0-24.76-11.6-24.76-25.92s11.09-25.93 24.76-25.93 24.72 11.61 24.72 25.93c0 1.24 0 2.42-.15 3.57zm-24.55-19.21c-5.49 0-10 4.11-10.9 10.55h21.8c-.86-6.42-5.42-10.55-10.9-10.55z" fill="#ffffff" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></g></g></svg>
+                </a>
+                <!-- Figma -->
+                <a href="https://www.figma.com/@farisahmdadl" target="_blank" class="p-3 rounded-full bg-slate-900/50 border border-blue-500/20 text-slate-300 hover:bg-blue-500/10 hover:border-blue-400 hover:text-blue-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]" aria-label="Figma">
+                    <svg class="w-6 h-6" fill="currentColor"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="300" height="300" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g id="Group">
+                        <g id="Rectangle_55_x5F_2">
+                            <path d="M390.65,175.9c26.08-17.14,43.33-46.65,43.33-80.11C433.98,42.97,391,0,338.18,0H173.82C121,0,78.02,42.97,78.02,95.79    c0,33.46,17.25,62.97,43.33,80.11c-26.08,17.13-43.33,46.64-43.33,80.1s17.25,62.97,43.33,80.11    c-26.08,17.12-43.33,46.64-43.33,80.1c0,52.82,43.21,95.79,96.31,95.79c53.68,0,97.36-43.44,97.36-96.83v-88.34    c17.02,15.51,39.63,24.96,64.41,24.96h2.08c52.82,0,95.8-42.97,95.8-95.79C433.98,222.54,416.73,193.03,390.65,175.9z     M271.69,31.38h66.49c35.52,0,64.42,28.89,64.42,64.41s-28.9,64.42-64.42,64.42h-66.49V31.38z M109.4,95.79    c0-35.52,28.9-64.41,64.42-64.41h66.49v128.83h-66.49C138.3,160.21,109.4,131.31,109.4,95.79z M109.4,256    c0-35.52,28.9-64.41,64.42-64.41h66.49v128.83h-66.9C138.08,320.2,109.4,291.38,109.4,256z M240.31,415.17    c0,36.09-29.6,65.45-65.98,65.45c-35.8,0-64.93-28.89-64.93-64.41s28.9-64.42,64.42-64.42h66.49V415.17z M338.18,320.42h-2.08    c-35.52,0-64.41-28.9-64.41-64.42s28.89-64.41,64.41-64.41h2.08c35.52,0,64.42,28.89,64.42,64.41S373.7,320.42,338.18,320.42z" fill="#ffffff" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/>
+                        </g>
+                        <g id="Rectangle_55_x5F_4">
+                            <path d="M173.82,320.41c-0.14,0-0.27,0-0.41,0.01h66.9v-0.01H173.82z" fill="#ffffff" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/>
+                        </g>
+                    </g></g></svg>
+                </a>
+                <!-- Medium -->
+                <a href="https://medium.com/@farisahmdadl" target="_blank" class="p-3 rounded-full bg-slate-900/50 border border-teal-500/20 text-slate-300 hover:bg-teal-500/10 hover:border-teal-400 hover:text-teal-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]" aria-label="Medium">
+                    <svg class="w-6 h-6" fill="currentColor" clip-rule="evenodd" fill-rule="evenodd" height="300" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" viewBox="0 0 512 512" width="300" xmlns="http://www.w3.org/2000/svg" xmlns:xodm="http://www.corel.com/coreldraw/odm/2003" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g id="Layer_x0020_1"><path d="m256 .5c141.11 0 255.5 114.39 255.5 255.5s-114.39 255.5-255.5 255.5-255.5-114.39-255.5-255.5 114.39-255.5 255.5-255.5zm-75.05 159.07c53.26 0 96.43 43.18 96.43 96.43s-43.17 96.43-96.43 96.43c-53.25 0-96.42-43.18-96.42-96.43s43.17-96.43 96.42-96.43zm154.29 7.62c26.95 0 48.79 39.76 48.79 88.81s-21.84 88.81-48.79 88.81-48.79-39.76-48.79-88.81 21.84-88.81 48.79-88.81zm75.24 7.61c9.38 0 16.99 36.35 16.99 81.2s-7.61 81.2-16.99 81.2c-9.39 0-17-36.35-17-81.2s7.61-81.2 17-81.2z" fill="#ffffff" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></g></svg>
+                </a>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                <a href="#portfolio" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold tracking-wide hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                    View My Work
+                </a>
+                <a href="#about" class="px-8 py-4 rounded-xl border border-cyan-500/40 text-cyan-300 font-bold tracking-wide bg-slate-900/50 backdrop-blur-sm hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-300">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About & Contact Section -->
+    <section id="about" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Summary Text -->
+                <div class="reveal-up lg:col-span-7">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="h-[2px] w-12 bg-cyan-500"></div>
+                        <h2 class="text-sm font-bold tracking-widest text-cyan-500 uppercase">Personal Summary</h2>
+                    </div>
+                    <h3 class="text-3xl md:text-5xl font-bold mb-6 text-white">About <span class="text-neon-gradient">Me</span></h3>
+                    <p class="text-slate-300 text-lg leading-relaxed mb-6">
+                        A <span class="text-neon-gradient">Creative Technologist</span> with 5+ years of experience bridging full-stack software development, data management, and graphic design. Highly skilled in React.js, Node.js, Adobe Creative Cloud, and Figma. Proven track record of leading team initiatives, collaborating with executive leadership to align technical execution with business goals, company marketing campaigns and branding. Seeking a dynamic role that merges business, technology, and art across data analytics, web development, and visual design.
+                    </p>
+                </div>
+
+                <!-- Contact Glass Panel -->
+                <div class="reveal-up lg:col-span-5 glass-panel rounded-2xl p-8 relative overflow-hidden group hover-neon-glow">
+                    <!-- Decor line -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-600"></div>
+                    
+                    <h3 class="text-2xl font-bold mb-8 text-white">Contact</h3>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-center group/item">
+                            <div class="w-12 h-12 rounded-lg bg-blue-900/40 border border-blue-500/30 flex items-center justify-center mr-4 shrink-0 text-cyan-400 group-hover/item:bg-cyan-500/20 group-hover/item:border-cyan-400 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Phone & WhatsApp</p>
+                                <p class="font-semibold text-lg text-slate-200">+62 877 5254 5826</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center group/item">
+                            <div class="w-12 h-12 rounded-lg bg-blue-900/40 border border-blue-500/30 flex items-center justify-center mr-4 shrink-0 text-cyan-400 group-hover/item:bg-cyan-500/20 group-hover/item:border-cyan-400 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email</p>
+                                <p class="font-semibold text-lg text-slate-200">f.ahmadadli10@gmail.com</p>
+                            </div>
+                        </li>
+                         <li class="flex items-center group/item">
+                            <div class="w-12 h-12 rounded-lg bg-blue-900/40 border border-blue-500/30 flex items-center justify-center mr-4 shrink-0 text-cyan-400 group-hover/item:bg-cyan-500/20 group-hover/item:border-cyan-400 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" id="Capa_1" enable-background="new 0 0 469.333 469.333" height="512" viewBox="0 0 469.333 469.333" width="512" xmlns="http://www.w3.org/2000/svg"><g><g id="Layer_2_13_"><path d="m234.67 256c70.692 0 128-57.308 128-128s-57.308-128-128-128-128 57.308-128 128c.07 70.663 57.336 127.929 128 128zm0-213.333c47.128 0 85.333 38.205 85.333 85.333s-38.205 85.333-85.333 85.333-85.334-38.205-85.334-85.333 38.205-85.333 85.334-85.333z"/><path d="m452.376 441.131c-40.744-120.236-171.244-184.677-291.48-143.933-67.763 22.962-120.97 76.169-143.933 143.933-3.794 11.155 2.173 23.273 13.328 27.066 2.214.753 4.536 1.137 6.875 1.136h395.008c11.782.003 21.336-9.546 21.339-21.328 0-2.338-.384-4.66-1.137-6.874zm-382.784-14.464c48.731-91.17 162.142-125.573 253.312-76.843 32.65 17.451 59.391 44.193 76.843 76.843z"/></g></g></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Curriculum Vitae (PDF)</p>
+                                <a href="https://drive.google.com/drive/folders/145LUjLjA_LuV1q3JytXf0CDL1VkL8jGd?usp=sharing" target="_blank" class="font-semibold text-lg text-cyan-400 hover:text-cyan-300 transition-colors">Curriculum Vitae - Faris Adli</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center group/item">
+                            <div class="w-12 h-12 rounded-lg bg-blue-900/40 border border-blue-500/30 flex items-center justify-center mr-4 shrink-0 text-cyan-400 group-hover/item:bg-cyan-500/20 group-hover/item:border-cyan-400 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor"  xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M20.12,5.75H16.75V5a2.24,2.24,0,0,0-2.24-2.24h-5a2.21,2.21,0,0,0-1.59.66A2.26,2.26,0,0,0,7.26,5v.75H3.88A2.63,2.63,0,0,0,1.25,8.38V18.62a2.63,2.63,0,0,0,2.63,2.63H20.12a2.63,2.63,0,0,0,2.63-2.63V8.38A2.63,2.63,0,0,0,20.12,5.75ZM8.76,5A.73.73,0,0,1,9,4.47a.71.71,0,0,1,.52-.22h5a.74.74,0,0,1,.74.74v.76H8.77Zm-6,3.39A1.14,1.14,0,0,1,3.88,7.25H20.12a1.14,1.14,0,0,1,1.13,1.13v3.24a1.14,1.14,0,0,1-1.13,1.13H14.75V12.5a.76.76,0,0,0-.75-.75H10a.76.76,0,0,0-.75.75v.25H3.88a1.14,1.14,0,0,1-1.13-1.13Zm8,5.12v-.25h2.5v.5h-2.5Zm9.37,6.25H3.88a1.14,1.14,0,0,1-1.13-1.13V14a2.51,2.51,0,0,0,1.13.27H9.25v.25a.76.76,0,0,0,.75.75h4a.76.76,0,0,0,.75-.75v-.25h5.37A2.51,2.51,0,0,0,21.25,14v4.64A1.14,1.14,0,0,1,20.12,19.75Z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Portfolio (PDF)</p>
+                                <a href="https://drive.google.com/drive/folders/1AEU_bgWBNkxztZjg0ayxy9sLwVVVXjL3?usp=sharing" target="_blank" class="font-semibold text-lg text-cyan-400 hover:text-cyan-300 transition-colors">Portfolio - Faris Adli</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6 relative z-10 bg-[#06102b]/40 border-y border-cyan-900/30">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="text-sm font-bold tracking-widest text-cyan-500 uppercase mb-2">Career Journey</h2>
+                <h3 class="text-3xl md:text-5xl font-bold text-white">Work <span class="text-neon-gradient">Experience</span></h3>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="reveal-up glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden group">
+                    <h4 class="text-2xl font-bold text-white">Petrolink</h4>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full -z-10 group-hover:bg-blue-500/20 transition-colors"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
+                        <div>
+                            <h5 class="text-cyan-400 font-medium text-lg">Graphic Assistant</h5>
+                        </div>
+                        <span class="inline-block px-4 py-1.5 border border-blue-500/40 bg-blue-900/30 text-blue-300 text-sm font-bold rounded-full whitespace-nowrap">Januari 2025 - September 2026</span>
+                    </div>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                            <li>Designed and executed 20+ effective digital assets for LinkedIn, driving an increase in average post engagement and brand visibility.</li>
+                            <li>Directed a comprehensive production of motion graphic YouTube Shorts for major corporate campaigns, boosting overall brand visibility and achieving an increase in audience reach.</li>
+                            <li>Designed comprehensive event branding identities across multiple physical touchpoints, delivering a cohesive visual experience that elevated brand authority among 1,000+ event delegates.</li>
+                            <li>Standardized corporate presentation templates with a modular library of diagram assets, enabling the sales and business development teams to assemble bespoke pitch decks faster.</li>
+                            <li>Executed the publication of SEO optimized articles on the main website, designing highly engaging featured images that contributed to an increase in organic page views.</li>
+                            <li>Executed the visual layout and digital publication of internal announcements and articles through the WordPress CMS, ensuring strict corporate brand alignment across the employee portal.</li>
+                        </ul>
+                        <br>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
+                        <div>
+                            <h5 class="text-cyan-400 font-medium text-lg">Developer & Data Specialist</h5>
+                        </div>
+                        <span class="inline-block px-4 py-1.5 border border-blue-500/40 bg-blue-900/30 text-blue-300 text-sm font-bold rounded-full whitespace-nowrap">March 2021 - December 2024</span>
+                    </div>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                            <li>Developed a fullstack carbon data management system utilizing React.js, Node.js, and PostgreSQL for  environmental data tracking and reporting project.</li>
+                            <li>Architected a highly scalable database structure and optimized backend code to seamlessly integrate with over 1,000 distinct data sources.</li>
+                            <li>Led and mentored a data processing team to successfully extract, transform, and migrate unstructured environmental data from PDFs format into a clean and formatted database.</li>
+                            <li>Reduced data extraction costs by over 60% through strategic process optimization.</li>
+                            <li>Collaborated directly with C level executives to align team objectives with strategic business goals and ensure the timely execution of key initiatives.</li>
+                        </ul>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Skills Section -->
+    <section id="skills" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Education -->
+                <div class="reveal-up space-y-4">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="h-[2px] w-12 bg-blue-500"></div>
+                        <h2 class="text-sm font-bold tracking-widest text-blue-400 uppercase">Academics</h2>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-8 text-white">Formal <span class="text-neon-gradient">Education</span></h3>
+                    
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-blue-500 hover-neon-glow">
+                        <span class="inline-block px-3 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded-full mb-4">December 2019 – February 2024</span>
+                        <h4 class="text-2xl font-bold text-white mb-1">Bachelor of Computer Science</h4>
+                        <p class="text-lg text-blue-400 font-medium mb-4">Bina Nusantara University</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-blue-500 hover-neon-glow">
+                        <span class="inline-block px-3 py-1 bg-cyan-900/40 text-blue-300 text-xs font-bold rounded-full mb-4">August 2016 – August 2019</span>
+                        <h4 class="text-2xl font-bold text-white mb-1">Diploma of Electronics Industry</h4>
+                        <p class="text-lg text-cyan-400 font-medium mb-4">Jakarta State Polytechnic</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-blue-500 hover-neon-glow">
+                        <span class="inline-block px-3 py-1 bg-teal-900/40 text-blue-300 text-xs font-bold rounded-full mb-4">July 2012 – July 2016</span>
+                        <h4 class="text-2xl font-bold text-white mb-1">Vocational High School of Electronics Industry</h4>
+                        <p class="text-lg text-teal-400 font-medium mb-4">SMKN 26 Pembangunan Jakarta</p>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="reveal-up">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="h-[2px] w-12 bg-cyan-500"></div>
+                        <h2 class="text-sm font-bold tracking-widest text-cyan-400 uppercase">Expertise</h2>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-8 text-white">Core <span class="text-neon-gradient">Skills</span></h3>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Skill Tags with Neon style -->
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> Adobe Photoshop
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Adobe Illustrator
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-teal-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-teal-400 hover:text-teal-300 hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#14b8a6]"></span> Adobe InDesign
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> Adobe After Effects
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-indigo-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-indigo-400 hover:text-indigo-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]"></span> Adobe Premiere Pro
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Figma
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> Canva
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Affinity
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-teal-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-teal-400 hover:text-teal-300 hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#14b8a6]"></span> CorelDRAW
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> DaVinci Resolve
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-indigo-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-indigo-400 hover:text-indigo-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]"></span> Capcut
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Blender 3D
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> HTML
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> CSS
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-teal-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-teal-400 hover:text-teal-300 hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#14b8a6]"></span> JavaScript
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> React.js
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-indigo-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-indigo-400 hover:text-indigo-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]"></span> Node.js
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Express.js
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> PHP
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Java
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-teal-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-teal-400 hover:text-teal-300 hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#14b8a6]"></span> Python
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> PostgreSQL
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-indigo-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-indigo-400 hover:text-indigo-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]"></span> MonggoDB
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> WordPress
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> A/B Testing
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-blue-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-blue-400 hover:text-blue-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></span> Web Scraping
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-teal-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-teal-400 hover:text-teal-300 hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_#14b8a6]"></span> SEO Optimization
+                        </div>
+                        <div class="px-6 py-3 rounded-xl bg-slate-900/80 border border-cyan-800 text-slate-200 font-semibold hover:-translate-y-1 hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 cursor-default flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span> Microsoft Office
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates & Licenses Section -->
+    <section id="certificates" class="py-24 px-6 relative z-10 bg-[#050e26]/50 border-t border-cyan-900/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="text-sm font-bold tracking-widest text-cyan-400 uppercase mb-2">Credentials</h2>
+                <h3 class="text-3xl md:text-5xl font-bold mb-4 text-white">Certificates & <span class="text-neon-gradient">Licenses</span></h3>
+                <p class="text-slate-400 max-w-3xl mx-auto">Professional certifications and specialized training validating expertise in data, development, and design.</p>
+            </div>
+            
+            <!-- Slider Wrapper -->
+            <div class="relative w-full max-w-7xl mx-auto group">
+                
+                <!-- Navigation Buttons -->
+                <button id="prev-cert" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-slate-900/80 border border-cyan-500/30 text-cyan-400 opacity-0 group-hover:opacity-100 hover:bg-cyan-900/50 hover:scale-110 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)] focus:outline-none" aria-label="Previous Certificate">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                
+                <button id="next-cert" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-slate-900/80 border border-cyan-500/30 text-cyan-400 opacity-0 group-hover:opacity-100 hover:bg-cyan-900/50 hover:scale-110 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.2)] focus:outline-none" aria-label="Next Certificate">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+
+                <!-- Slider Container -->
+                <div id="cert-slider" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 pt-4 hide-scrollbar scroll-smooth">
+                    
+                    <!-- Certificate 1 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[45vw] lg:w-[380px] glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden flex flex-col justify-between h-[250px]">
+                        <div>
+                            <div class="flex justify-end mb-4">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Branding and Business Communication</h4>
+                            <p class="text-cyan-400 font-medium text-sm mb-4">Apple Developer Institute</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1-xE2vwwrae3G-VBMf1o0rkGXdChJKR4Q/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white transition-colors mt-auto w-fit">
+                            Verify Credential <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Certificate 2 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[45vw] lg:w-[380px] glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden flex flex-col justify-between h-[250px]">
+                        <div>
+                            <div class="flex justify-end mb-4">
+                                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">English for Adults High-Intermediate</h4>
+                            <p class="text-blue-400 font-medium text-sm mb-4">LB LIA English Course</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1VMHcZ3xGLxym2t3vK2bGinOJnLk4zES-/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white transition-colors mt-auto w-fit">
+                            Verify Credential <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Certificate 3 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[45vw] lg:w-[380px] glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden flex flex-col justify-between h-[250px]">
+                        <div>
+                            <div class="flex justify-end mb-4">
+                                <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Master Digital Product Design</h4>
+                            <p class="text-teal-400 font-medium text-sm mb-4">Udemy</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1b03L85f7skiGjbekh86t7CYC_OHaxN9w/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white transition-colors mt-auto w-fit">
+                            Verify Credential <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Certificate 4 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[45vw] lg:w-[380px] glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden flex flex-col justify-between h-[250px]">
+                        <div>
+                            <div class="flex justify-end mb-4">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">A/B Testing in Python</h4>
+                            <p class="text-cyan-400 font-medium text-sm mb-4">Udemy</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1nZL7ARZpKrMB9GZZgE-ep5XlG4K8V5nl/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white transition-colors mt-auto w-fit">
+                            Verify Credential <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Certificate 5 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[45vw] lg:w-[380px] glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden flex flex-col justify-between h-[250px]">
+                        <div>
+                            <div class="flex justify-end mb-4">
+                                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Graphic Designer to Motion Designer</h4>
+                            <p class="text-blue-400 font-medium text-sm mb-4">Udemy</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1-W_8P35nuAEmobVLuyOoKCBgSnW3_4Hd/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white transition-colors mt-auto w-fit">
+                            Verify Credential <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Certificate 6 -->
+                    <div class="snap-center shrink-0 w-[85vw] md:w-[45vw] lg:w-[380px] glass-panel p-8 rounded-2xl hover-neon-glow relative overflow-hidden flex flex-col justify-between h-[250px]">
+                        <div>
+                            <div class="flex justify-end mb-4">
+                                <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Introduction to SQL</h4>
+                            <p class="text-teal-400 font-medium text-sm mb-4">Coursera</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1Ij4_IZa1ORhUOX2mDQ_uSXr1cEwjUcUZ/view?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-white transition-colors mt-auto w-fit">
+                            Verify Credential <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 px-6 relative z-10 bg-[#040b1e]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="text-sm font-bold tracking-widest text-blue-400 uppercase mb-2">Selected Works</h2>
+                <h3 class="text-3xl md:text-5xl font-bold mb-4 text-white">Featured <span class="text-neon-gradient">Projects</span></h3>
+                <p class="text-slate-400 max-w-2xl mx-auto">A showcase of visual content and video projects executed with precision and creativity.</p>
+            </div>
+            
+            <!-- Portfolio Filters -->
+            <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-12 reveal-up" id="portfolio-filters">
+                <button class="filter-btn active px-5 py-2 md:px-6 rounded-full border border-cyan-500/40 bg-cyan-900/30 text-cyan-300 font-semibold hover:bg-cyan-500/20 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.4)]" data-filter="all">All Works</button>
+                <button class="filter-btn px-5 py-2 md:px-6 rounded-full border border-slate-700 bg-slate-900/50 text-slate-400 font-semibold hover:border-cyan-500/40 hover:text-cyan-300 transition-all duration-300" data-filter="data">Data</button>
+                <button class="filter-btn px-5 py-2 md:px-6 rounded-full border border-slate-700 bg-slate-900/50 text-slate-400 font-semibold hover:border-cyan-500/40 hover:text-cyan-300 transition-all duration-300" data-filter="development">Development</button>
+                <button class="filter-btn px-5 py-2 md:px-6 rounded-full border border-slate-700 bg-slate-900/50 text-slate-400 font-semibold hover:border-cyan-500/40 hover:text-cyan-300 transition-all duration-300" data-filter="design">Design</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                
+                <!-- Project 1 -->
+                <a href="https://www.behance.net/gallery/256405365/Fluxist-Studio" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="design">
+                    <img src="src/project-1.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Personal Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Fluxist Studio</h4>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <a href="https://www.behance.net/gallery/256728753/Batavia-Spices" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="design">
+                    <img src="src/project-2.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Branding Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Batavia Spices</h4>
+                    </div>
+                </a>
+
+                <!-- Project 3 -->
+                <a href="https://github.com/farisahmdadl/leetcode-coding-challenge" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-3.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Coding Challenge</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Leetcode Coding Challenge</h4>
+                    </div>
+                </a>
+
+                <!-- Project 4 -->
+                <a href="https://github.com/farisahmdadl/codewars-coding-challenge" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-4.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Coding Challenge</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Codewars Coding Challenge</h4>
+                    </div>
+                </a>
+
+                <!-- Project 5 -->
+                <a href="https://www.behance.net/gallery/256596155/Parkirin" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="design">
+                    <img src="src/project-5.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Branding Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Parkirin</h4>
+                    </div>
+                </a>
+
+                <!-- Project 6 -->
+                <a href="https://github.com/farisahmdadl/data-scraping" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="data">
+                    <img src="src/project-6.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Data Collection</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Data Scraping Project</h4>
+                    </div>
+                </a>
+
+                <!-- Project 7 -->
+                <a href="https://medium.com/@farisahmdadl/carbon-neutrality-prediction-with-linear-regression-d577b566505" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="data">
+                    <img src="src/project-7.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Data Forecast</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Prediction with Linear Regression</h4>
+                    </div>
+                </a>
+
+                <!-- Project 8 -->
+                <a href="https://dribbble.com/shots/27692905-L-Artigiano-Pizza" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="design">
+                    <img src="src/project-8.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Design Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">L'Artigiano Pizza</h4>
+                    </div>
+                </a>
+
+                <!-- Project 9 -->
+                <a href="https://dribbble.com/shots/27737553-Golden-Sunny-Banana" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="design">
+                    <img src="src/project-9.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Design Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Golden Sunny Banana</h4>
+                    </div>
+                </a>
+
+                <!-- Project 10 -->
+                <a href="https://github.com/farisahmdadl/java-to-do-list-app" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-10.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Development Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Java To-Do List App</h4>
+                    </div>
+                </a>
+
+                <!-- Project 11 -->
+                <a href="https://github.com/farisahmdadl/reactjs-gemini-api" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-11.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Development Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">React.js Gemini API</h4>
+                    </div>
+                </a>
+
+                <!-- Project 12 -->
+                <a href="https://github.com/farisahmdadl/reactjs-moviedb-api" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-12.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Development Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">React.js MovieDB API</h4>
+                    </div>
+                </a>
+
+                <!-- Project 13 -->
+                <a href="https://github.com/farisahmdadl/mern-workout-app" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-13.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Development Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">MERN Workout App</h4>
+                    </div>
+                </a>
+
+                <!-- Project 14 -->
+                <a href="https://github.com/farisahmdadl/reactjs-tic-tac-toe" target="_blank" class="portfolio-item reveal-up group relative rounded-2xl overflow-hidden glass-panel border border-cyan-900/50 hover-neon-glow cursor-pointer transition-all duration-500" data-category="development">
+                    <img src="src/project-14.png" alt="Event Promotion Video" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">Development Project</span>
+                        <h4 class="text-xl font-bold text-white mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">React.js Tic Tac Toe</h4>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#020617] py-10 px-6 border-t border-cyan-900/30 relative z-10 text-center">
+        <div class="max-w-7xl mx-auto flex flex-col items-center gap-6">
+            <p class="text-slate-600 text-sm mt-4">
+                &copy; <span id="current-year"></span> Engineered with <span class="text-blue-500">Imagination</span> and <span class="text-cyan-500">Creativity</span>.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+        // Get the current year and insert it into the span
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+
+        // Certificate Slider Logic
+            const certSlider = document.getElementById('cert-slider');
+            const prevCertBtn = document.getElementById('prev-cert');
+            const nextCertBtn = document.getElementById('next-cert');
+
+            if (certSlider && prevCertBtn && nextCertBtn) {
+                let autoSlideInterval;
+
+                // Menghitung jarak geser (lebar kartu + jarak gap)
+                const scrollAmount = () => {
+                    const card = certSlider.querySelector('div');
+                    const gap = 24; // Sesuai dengan gap-6 di Tailwind (1.5rem = 24px)
+                    return card.offsetWidth + gap;
+                };
+
+                // Fungsi menggeser ke kanan (Next)
+                const scrollNext = () => {
+                    // Cek apakah posisi scroll sudah mentok di kanan (ditambah margin toleransi 10px)
+                    if (certSlider.scrollLeft + certSlider.clientWidth >= certSlider.scrollWidth - 10) {
+                        // Jika sudah di akhir, kembali ke paling awal (kiri)
+                        certSlider.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        // Jika belum di akhir, geser 1 kartu ke kanan
+                        certSlider.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+                    }
+                };
+
+                // Fungsi menggeser ke kiri (Previous)
+                const scrollPrev = () => {
+                    // Cek apakah posisi scroll sudah mentok di kiri
+                    if (certSlider.scrollLeft <= 10) {
+                        // Jika di paling awal, lompat ke paling akhir (kanan)
+                        certSlider.scrollTo({ left: certSlider.scrollWidth, behavior: 'smooth' });
+                    } else {
+                        // Jika belum di awal, geser 1 kartu ke kiri
+                        certSlider.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+                    }
+                };
+
+                // Memulai timer auto-slide setiap 7 detik (7000 milidetik)
+                const startAutoSlide = () => {
+                    autoSlideInterval = setInterval(scrollNext, 7000);
+                };
+
+                // Mereset timer agar tidak bergeser dobel saat pengguna menekan tombol manual
+                const resetAutoSlide = () => {
+                    clearInterval(autoSlideInterval);
+                    startAutoSlide();
+                };
+
+                // Event listener untuk klik tombol Next & Prev
+                prevCertBtn.addEventListener('click', () => {
+                    scrollPrev();
+                    resetAutoSlide();
+                });
+
+                nextCertBtn.addEventListener('click', () => {
+                    scrollNext();
+                    resetAutoSlide();
+                });
+
+                // Memulai auto-slide saat halaman pertama kali dimuat
+                startAutoSlide();
+
+                // (Opsional) Menghentikan auto-slide saat kursor berada di area slider (Pause on hover)
+                // Sangat disarankan agar pengguna bisa tenang saat membaca teks sertifikat
+                certSlider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+                certSlider.addEventListener('mouseleave', startAutoSlide);
+                
+                // Tambahan untuk perangkat sentuh (Touchscreen)
+                certSlider.addEventListener('touchstart', () => clearInterval(autoSlideInterval), {passive: true});
+                certSlider.addEventListener('touchend', startAutoSlide, {passive: true});
+            }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animated Greeting Logic
+            const greetings = [];
+            let currentGreetingIndex = 1;
+            const greetingElement = document.getElementById('animated-greeting');
+
+            if (greetingElement) {
+                setInterval(() => {
+                    // Fade out
+                    greetingElement.classList.remove('opacity-100');
+                    greetingElement.classList.add('opacity-0');
+                    
+                    setTimeout(() => {
+                        // Change text while invisible
+                        currentGreetingIndex = (currentGreetingIndex + 1) % greetings.length;
+                        greetingElement.innerText = greetings[currentGreetingIndex];
+                        
+                        // Fade in
+                        greetingElement.classList.remove('opacity-0');
+                        greetingElement.classList.add('opacity-100');
+                    }, 500); // Wait 500ms for CSS transition
+                }, 5000); // 5 second intervals
+            }
+
+            // Mobile Menu Toggle
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            });
+
+            // Close mobile menu on link click
+            const mobileLinks = menu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                });
+            });
+
+            // Intersection Observer for Reveal Up Animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Stagger effect based on DOM order
+                        setTimeout(() => {
+                            entry.target.classList.add('active');
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Select all elements with reveal-up class
+            const revealElements = document.querySelectorAll('.reveal-up');
+            revealElements.forEach(el => observer.observe(el));
+            
+            // Portfolio Filtering Logic
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active styles from all buttons
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'border-cyan-500/40', 'bg-cyan-900/30', 'text-cyan-300', 'shadow-[0_0_15px_rgba(6,182,212,0.4)]');
+                        b.classList.add('border-slate-700', 'bg-slate-900/50', 'text-slate-400');
+                    });
+
+                    // Add active styles to clicked button
+                    btn.classList.add('active', 'border-cyan-500/40', 'bg-cyan-900/30', 'text-cyan-300', 'shadow-[0_0_15px_rgba(6,182,212,0.4)]');
+                    btn.classList.remove('border-slate-700', 'bg-slate-900/50', 'text-slate-400');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    // Filter items
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.classList.remove('hidden');
+                            // Trigger reflow for smooth scaling effect if needed
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.classList.add('hidden');
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.95)';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
